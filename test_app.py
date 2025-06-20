@@ -6,32 +6,39 @@ import pandas as pd
 from datetime import datetime
 import json
 
-# Import the app
+#import the dash application from the app module
 app = import_app('app')
+
 
 def test_app_layout():
     """Test that the app layout is properly structured"""
+    #ensure that the imported app is an instance of dash
     assert isinstance(app, Dash)
+    #ensure that the app has a layout defined
     assert app.layout is not None
+
 
 def test_combine_date_time():
     """Test the combine_date_time function"""
+    #import the combine_date_time helper from the app module
     from app import combine_date_time
     
-    # Test with both date and time
+    #test case: both date and time provided
     result = combine_date_time('2024-01-01', '10:00:00')
     assert result == '2024-01-01 10:00:00'
     
-    # Test with date only
+    #test case: date only(time is none)
     result = combine_date_time('2024-01-01', None)
     assert result == '2024-01-01'
     
-    # Test with None date
+    #test case: date missing(should return none)
     result = combine_date_time(None, '10:00:00')
     assert result is None
 
+
+#parameterized tests for retrieve_records validation logic
 @pytest.mark.parametrize("test_input,expected", [
-    # Test case 1: All fields filled
+    #test case 1: all fields filled(should pass)
     ({
         'first_name': 'John',
         'last_name': 'Doe',
@@ -44,7 +51,7 @@ def test_combine_date_time():
         'to_time': '00:00:00'
     }, True),
     
-    # Test case 2: Missing required field
+    #test case 2: missing required field(from_date is none, should fail)
     ({
         'first_name': 'John',
         'last_name': 'Doe',
@@ -57,7 +64,7 @@ def test_combine_date_time():
         'to_time': '00:00:00'
     }, False),
     
-    # Test case 3: Optional measurement datetime
+    #test case 3: optional measurement datetime missing(should pass)
     ({
         'first_name': 'John',
         'last_name': 'Doe',
@@ -72,16 +79,18 @@ def test_combine_date_time():
 ])
 def test_retrieve_validation(test_input, expected):
     """Test the validation logic in retrieve_records callback"""
+    #import the retrieve_records callback from the app module
     from app import retrieve_records
     
-    # Mock the database handler
+    #create a mock database handler with a dummy retrieve_records method
     class MockDB:
         def retrieve_records(self, *args):
+            #return an empty dataframe to simulate database response
             return pd.DataFrame()
     
-    # Test the validation
+    #call the retrieve_records function with the test input parameters
     result = retrieve_records(
-        1,  # n_clicks
+        1,  #n_clicks(simulate button click)
         test_input['first_name'],
         test_input['last_name'],
         test_input['loinc'],
@@ -93,13 +102,16 @@ def test_retrieve_validation(test_input, expected):
         test_input['to_time']
     )
     
+    #check whether the result contains the expected validation message or not
     if expected:
         assert not isinstance(result, str) or "Please fill in all required fields" not in result
     else:
         assert isinstance(result, str) and "Please fill in all required fields" in result
 
+
+#parameterized tests for update_record validation logic
 @pytest.mark.parametrize("test_input,expected", [
-    # Test case 1: All fields filled
+    #test case 1: all fields filled(should pass)
     ({
         'first_name': 'John',
         'last_name': 'Doe',
@@ -111,7 +123,7 @@ def test_retrieve_validation(test_input, expected):
         'measurement_time': '10:00:00'
     }, True),
     
-    # Test case 2: Missing required field
+    #test case 2: missing required field(value is none, should fail)
     ({
         'first_name': 'John',
         'last_name': 'Doe',
@@ -125,11 +137,12 @@ def test_retrieve_validation(test_input, expected):
 ])
 def test_update_validation(test_input, expected):
     """Test the validation logic in update_record callback"""
+    #import the update_record callback from the app module
     from app import update_record
     
-    # Test the validation
+    #call the update_record function with the test input parameters
     result = update_record(
-        1,  # n_clicks
+        1,  #n_clicks(simulate button click)
         test_input['first_name'],
         test_input['last_name'],
         test_input['loinc'],
@@ -140,13 +153,16 @@ def test_update_validation(test_input, expected):
         test_input['measurement_time']
     )
     
+    #check whether the result contains the expected validation message or not
     if expected:
         assert not isinstance(result, str) or "Please fill in all required fields" not in result
     else:
         assert isinstance(result, str) and "Please fill in all required fields" in result
 
+
+#parameterized tests for delete_record validation logic
 @pytest.mark.parametrize("test_input,expected", [
-    # Test case 1: All fields filled
+    #test case 1: all fields filled(should pass)
     ({
         'first_name': 'John',
         'last_name': 'Doe',
@@ -157,7 +173,7 @@ def test_update_validation(test_input, expected):
         'update_time': '10:00:00'
     }, True),
     
-    # Test case 2: Missing required field
+    #test case 2: missing required field(measurement_date is none, should fail)
     ({
         'first_name': 'John',
         'last_name': 'Doe',
@@ -170,11 +186,12 @@ def test_update_validation(test_input, expected):
 ])
 def test_delete_validation(test_input, expected):
     """Test the validation logic in delete_record callback"""
+    #import the delete_record callback from the app module
     from app import delete_record
     
-    # Test the validation
+    #call the delete_record function with the test input parameters
     result = delete_record(
-        1,  # n_clicks
+        1,  #n_clicks(simulate button click)
         test_input['first_name'],
         test_input['last_name'],
         test_input['loinc'],
@@ -184,7 +201,8 @@ def test_delete_validation(test_input, expected):
         test_input['update_time']
     )
     
+    #check whether the result contains the expected validation message or not
     if expected:
         assert not isinstance(result, str) or "Please fill in all required fields" not in result
     else:
-        assert isinstance(result, str) and "Please fill in all required fields" in result 
+        assert isinstance(result, str) and "Please fill in all required fields" in result
