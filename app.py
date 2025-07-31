@@ -19,11 +19,11 @@ from patient_state_calculator import (
 )
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
-db_handler = DBHandler('project_db.csv')
+db_handler = DBHandler('project_db_with_names.csv')
 knowledge_db = KnowledgeDataHandler()
 
 # Read the project database
-project_db = pd.read_csv('project_db.csv')
+project_db = pd.read_csv('project_db_with_names.csv')
 
 # Get unique patient names for dropdown
 patient_names = project_db[['first_name', 'last_name']].drop_duplicates()
@@ -370,7 +370,7 @@ def update_record(n_clicks, first_name, last_name, loinc, value, update_datetime
         success = db_handler.update_record(
             first_name, last_name, loinc, value, update_datetime, measurement_datetime
         )
-        return "Record updated successfully." if success else "Failed to update record."
+        return "Record updated successfully." if success[0] else "Failed to update record."
     except Exception as e:
         return f"Error: {str(e)}"
 
@@ -391,7 +391,7 @@ def delete_record(n_clicks, first_name, last_name, loinc, measurement_datetime, 
         success = db_handler.delete_record(
             first_name, last_name, loinc, measurement_datetime, update_datetime
         )
-        return "Record deleted successfully." if success else "Failed to delete record."
+        return "Record deleted successfully." if success[0] else "Failed to delete record."
     except Exception as e:
         return f"Error: {str(e)}"
 
@@ -931,4 +931,4 @@ def update_overview_cards(selected_date, selected_time):
         return html.Div(f"Error generating overview: {str(e)}", style={"color": "red"})
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run(debug=True)

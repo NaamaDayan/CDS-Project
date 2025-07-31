@@ -1,0 +1,133 @@
+first_name,last_name,LOINC-NUM,Value,Unit,measurement_datetime,update_datetime,Gender,LOINC-NAME
+John,Doe,30313-1,10.0,gr/dl,2025-05-18 14:00:00,2025-05-21 10:00:00,male,Hemoglobin:MCnc:Pt:BldA:Qn
+John,Doe,6690-2,5000,10³/µL,2025-05-18 14:00:00,2025-05-21 10:00:00,male,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+John,Doe,8310-5,39.0,Celsious,2025-05-18 14:00:00,2025-05-21 10:00:00,male,Body temperature:Temp:Pt:^Patient:Qn
+John,Doe,75275-8,Shaking,ordinal,2025-05-18 14:00:00,2025-05-21 10:00:00,male,Cognitive function:Imp:Pt:^Patient:Nom
+John,Doe,39106-0,Vesiculation,ordinal,2025-05-18 14:00:00,2025-05-21 10:00:00,male,Temperature:Find:Pt:Skin:Nom
+John,Doe,56840-2,Bronchospasm,ordinal,2025-05-18 14:00:00,2025-05-21 10:00:00,male,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+John,Doe,30313-1,11.5,gr/dl,2025-05-19 16:00:00,2025-05-22 10:00:00,male,Hemoglobin:MCnc:Pt:BldA:Qn
+John,Doe,6690-2,12000,10³/µL,2025-05-19 16:00:00,2025-05-22 10:00:00,male,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+John,Doe,8310-5,40.0,Celsious,2025-05-19 16:00:00,2025-05-22 10:00:00,male,Body temperature:Temp:Pt:^Patient:Qn
+John,Doe,75275-8,Rigor,ordinal,2025-05-19 16:00:00,2025-05-22 10:00:00,male,Cognitive function:Imp:Pt:^Patient:Nom
+John,Doe,39106-0,Desquamation,ordinal,2025-05-19 16:00:00,2025-05-22 10:00:00,male,Temperature:Find:Pt:Skin:Nom
+John,Doe,56840-2,Severe Bronchospasm,ordinal,2025-05-19 16:00:00,2025-05-22 10:00:00,male,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Michael,Johnson,30313-1,6.8,gr/dl,2025-05-18 08:00:00,2025-05-20 10:00:00,male,Hemoglobin:MCnc:Pt:BldA:Qn
+Michael,Johnson,6690-2,2800,10³/µL,2025-05-18 08:00:00,2025-05-20 10:00:00,male,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Michael,Johnson,8310-5,36.2,Celsious,2025-05-18 08:00:00,2025-05-20 10:00:00,male,Body temperature:Temp:Pt:^Patient:Qn
+Michael,Johnson,75275-8,,ordinal,2025-05-18 08:00:00,2025-05-20 10:00:00,male,Cognitive function:Imp:Pt:^Patient:Nom
+Michael,Johnson,39106-0,Erythema,ordinal,2025-05-18 08:00:00,2025-05-20 10:00:00,male,Temperature:Find:Pt:Skin:Nom
+Michael,Johnson,56840-2,,ordinal,2025-05-18 08:00:00,2025-05-20 10:00:00,male,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Michael,Johnson,30313-1,8.2,gr/dl,2025-05-18 16:00:00,2025-05-21 10:00:00,male,Hemoglobin:MCnc:Pt:BldA:Qn
+Michael,Johnson,6690-2,4200,10³/µL,2025-05-18 16:00:00,2025-05-21 10:00:00,male,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Michael,Johnson,8310-5,37.8,Celsious,2025-05-18 16:00:00,2025-05-21 10:00:00,male,Body temperature:Temp:Pt:^Patient:Qn
+Michael,Johnson,75275-8,Shaking,ordinal,2025-05-18 16:00:00,2025-05-21 10:00:00,male,Cognitive function:Imp:Pt:^Patient:Nom
+Michael,Johnson,39106-0,Vesiculation,ordinal,2025-05-18 16:00:00,2025-05-21 10:00:00,male,Temperature:Find:Pt:Skin:Nom
+Michael,Johnson,56840-2,Edema,ordinal,2025-05-18 16:00:00,2025-05-21 10:00:00,male,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Robert,Williams,30313-1,15.8,gr/dl,2025-05-18 09:00:00,2025-05-20 10:00:00,male,Hemoglobin:MCnc:Pt:BldA:Qn
+Robert,Williams,6690-2,8500,10³/µL,2025-05-18 09:00:00,2025-05-20 10:00:00,male,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Robert,Williams,8310-5,38.5,Celsious,2025-05-18 09:00:00,2025-05-20 10:00:00,male,Body temperature:Temp:Pt:^Patient:Qn
+Robert,Williams,75275-8,Rigor,ordinal,2025-05-18 09:00:00,2025-05-20 10:00:00,male,Cognitive function:Imp:Pt:^Patient:Nom
+Robert,Williams,39106-0,Exfoliation,ordinal,2025-05-18 09:00:00,2025-05-20 10:00:00,male,Temperature:Find:Pt:Skin:Nom
+Robert,Williams,56840-2,Severe Bronchospasm,ordinal,2025-05-18 09:00:00,2025-05-20 10:00:00,male,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Robert,Williams,30313-1,13.2,gr/dl,2025-05-18 17:00:00,2025-05-21 10:00:00,male,Hemoglobin:MCnc:Pt:BldA:Qn
+Robert,Williams,6690-2,5200,10³/µL,2025-05-18 17:00:00,2025-05-21 10:00:00,male,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Robert,Williams,8310-5,37.2,Celsious,2025-05-18 17:00:00,2025-05-21 10:00:00,male,Body temperature:Temp:Pt:^Patient:Qn
+Robert,Williams,75275-8,,ordinal,2025-05-18 17:00:00,2025-05-21 10:00:00,male,Cognitive function:Imp:Pt:^Patient:Nom
+Robert,Williams,39106-0,Erythema,ordinal,2025-05-18 17:00:00,2025-05-21 10:00:00,male,Temperature:Find:Pt:Skin:Nom
+Robert,Williams,56840-2,,ordinal,2025-05-18 17:00:00,2025-05-21 10:00:00,male,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+David,Brown,30313-1,7.1,gr/dl,2025-05-18 10:00:00,2025-05-20 10:00:00,male,Hemoglobin:MCnc:Pt:BldA:Qn
+David,Brown,6690-2,3200,10³/µL,2025-05-18 10:00:00,2025-05-20 10:00:00,male,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+David,Brown,8310-5,36.8,Celsious,2025-05-18 10:00:00,2025-05-20 10:00:00,male,Body temperature:Temp:Pt:^Patient:Qn
+David,Brown,75275-8,,ordinal,2025-05-18 10:00:00,2025-05-20 10:00:00,male,Cognitive function:Imp:Pt:^Patient:Nom
+David,Brown,39106-0,Erythema,ordinal,2025-05-18 10:00:00,2025-05-20 10:00:00,male,Temperature:Find:Pt:Skin:Nom
+David,Brown,56840-2,,ordinal,2025-05-18 10:00:00,2025-05-20 10:00:00,male,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+David,Brown,30313-1,9.5,gr/dl,2025-05-18 18:00:00,2025-05-21 10:00:00,male,Hemoglobin:MCnc:Pt:BldA:Qn
+David,Brown,6690-2,4800,10³/µL,2025-05-18 18:00:00,2025-05-21 10:00:00,male,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+David,Brown,8310-5,37.5,Celsious,2025-05-18 18:00:00,2025-05-21 10:00:00,male,Body temperature:Temp:Pt:^Patient:Qn
+David,Brown,75275-8,Shaking,ordinal,2025-05-18 18:00:00,2025-05-21 10:00:00,male,Cognitive function:Imp:Pt:^Patient:Nom
+David,Brown,39106-0,Vesiculation,ordinal,2025-05-18 18:00:00,2025-05-21 10:00:00,male,Temperature:Find:Pt:Skin:Nom
+David,Brown,56840-2,Edema,ordinal,2025-05-18 18:00:00,2025-05-21 10:00:00,male,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+James,Davis,30313-1,16.2,gr/dl,2025-05-18 11:00:00,2025-05-20 10:00:00,male,Hemoglobin:MCnc:Pt:BldA:Qn
+James,Davis,6690-2,9200,10³/µL,2025-05-18 11:00:00,2025-05-20 10:00:00,male,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+James,Davis,8310-5,39.1,Celsious,2025-05-18 11:00:00,2025-05-20 10:00:00,male,Body temperature:Temp:Pt:^Patient:Qn
+James,Davis,75275-8,Recurrent Rigor,ordinal,2025-05-18 11:00:00,2025-05-20 10:00:00,male,Cognitive function:Imp:Pt:^Patient:Nom
+James,Davis,39106-0,Desquamation,ordinal,2025-05-18 11:00:00,2025-05-20 10:00:00,male,Temperature:Find:Pt:Skin:Nom
+James,Davis,56840-2,Anaphylactic Shock,ordinal,2025-05-18 11:00:00,2025-05-20 10:00:00,male,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+James,Davis,30313-1,14.8,gr/dl,2025-05-18 19:00:00,2025-05-21 10:00:00,male,Hemoglobin:MCnc:Pt:BldA:Qn
+James,Davis,6690-2,5800,10³/µL,2025-05-18 19:00:00,2025-05-21 10:00:00,male,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+James,Davis,8310-5,37.9,Celsious,2025-05-18 19:00:00,2025-05-21 10:00:00,male,Body temperature:Temp:Pt:^Patient:Qn
+James,Davis,75275-8,Shaking,ordinal,2025-05-18 19:00:00,2025-05-21 10:00:00,male,Cognitive function:Imp:Pt:^Patient:Nom
+James,Davis,39106-0,Vesiculation,ordinal,2025-05-18 19:00:00,2025-05-21 10:00:00,male,Temperature:Find:Pt:Skin:Nom
+James,Davis,56840-2,Bronchospasm,ordinal,2025-05-18 19:00:00,2025-05-21 10:00:00,male,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Christopher,Miller,30313-1,6.5,gr/dl,2025-05-18 12:00:00,2025-05-20 10:00:00,male,Hemoglobin:MCnc:Pt:BldA:Qn
+Christopher,Miller,6690-2,2500,10³/µL,2025-05-18 12:00:00,2025-05-20 10:00:00,male,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Christopher,Miller,8310-5,36.5,Celsious,2025-05-18 12:00:00,2025-05-20 10:00:00,male,Body temperature:Temp:Pt:^Patient:Qn
+Christopher,Miller,75275-8,,ordinal,2025-05-18 12:00:00,2025-05-20 10:00:00,male,Cognitive function:Imp:Pt:^Patient:Nom
+Christopher,Miller,39106-0,Erythema,ordinal,2025-05-18 12:00:00,2025-05-20 10:00:00,male,Temperature:Find:Pt:Skin:Nom
+Christopher,Miller,56840-2,,ordinal,2025-05-18 12:00:00,2025-05-20 10:00:00,male,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Christopher,Miller,30313-1,8.8,gr/dl,2025-05-18 20:00:00,2025-05-21 10:00:00,male,Hemoglobin:MCnc:Pt:BldA:Qn
+Christopher,Miller,6690-2,4500,10³/µL,2025-05-18 20:00:00,2025-05-21 10:00:00,male,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Christopher,Miller,8310-5,37.3,Celsious,2025-05-18 20:00:00,2025-05-21 10:00:00,male,Body temperature:Temp:Pt:^Patient:Qn
+Christopher,Miller,75275-8,Shaking,ordinal,2025-05-18 20:00:00,2025-05-21 10:00:00,male,Cognitive function:Imp:Pt:^Patient:Nom
+Christopher,Miller,39106-0,Vesiculation,ordinal,2025-05-18 20:00:00,2025-05-21 10:00:00,male,Temperature:Find:Pt:Skin:Nom
+Christopher,Miller,56840-2,Edema,ordinal,2025-05-18 20:00:00,2025-05-21 10:00:00,male,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Sarah,Wilson,30313-1,6.2,gr/dl,2025-05-18 08:30:00,2025-05-20 10:00:00,female,Hemoglobin:MCnc:Pt:BldA:Qn
+Sarah,Wilson,6690-2,2400,10³/µL,2025-05-18 08:30:00,2025-05-20 10:00:00,female,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Sarah,Wilson,8310-5,36.3,Celsious,2025-05-18 08:30:00,2025-05-20 10:00:00,female,Body temperature:Temp:Pt:^Patient:Qn
+Sarah,Wilson,75275-8,,ordinal,2025-05-18 08:30:00,2025-05-20 10:00:00,female,Cognitive function:Imp:Pt:^Patient:Nom
+Sarah,Wilson,39106-0,Erythema,ordinal,2025-05-18 08:30:00,2025-05-20 10:00:00,female,Temperature:Find:Pt:Skin:Nom
+Sarah,Wilson,56840-2,,ordinal,2025-05-18 08:30:00,2025-05-20 10:00:00,female,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Sarah,Wilson,30313-1,7.8,gr/dl,2025-05-18 16:30:00,2025-05-21 10:00:00,female,Hemoglobin:MCnc:Pt:BldA:Qn
+Sarah,Wilson,6690-2,3800,10³/µL,2025-05-18 16:30:00,2025-05-21 10:00:00,female,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Sarah,Wilson,8310-5,37.6,Celsious,2025-05-18 16:30:00,2025-05-21 10:00:00,female,Body temperature:Temp:Pt:^Patient:Qn
+Sarah,Wilson,75275-8,Shaking,ordinal,2025-05-18 16:30:00,2025-05-21 10:00:00,female,Cognitive function:Imp:Pt:^Patient:Nom
+Sarah,Wilson,39106-0,Vesiculation,ordinal,2025-05-18 16:30:00,2025-05-21 10:00:00,female,Temperature:Find:Pt:Skin:Nom
+Sarah,Wilson,56840-2,Edema,ordinal,2025-05-18 16:30:00,2025-05-21 10:00:00,female,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Emily,Taylor,30313-1,14.8,gr/dl,2025-05-18 09:30:00,2025-05-20 10:00:00,female,Hemoglobin:MCnc:Pt:BldA:Qn
+Emily,Taylor,6690-2,7800,10³/µL,2025-05-18 09:30:00,2025-05-20 10:00:00,female,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Emily,Taylor,8310-5,38.8,Celsious,2025-05-18 09:30:00,2025-05-20 10:00:00,female,Body temperature:Temp:Pt:^Patient:Qn
+Emily,Taylor,75275-8,Rigor,ordinal,2025-05-18 09:30:00,2025-05-20 10:00:00,female,Cognitive function:Imp:Pt:^Patient:Nom
+Emily,Taylor,39106-0,Exfoliation,ordinal,2025-05-18 09:30:00,2025-05-20 10:00:00,female,Temperature:Find:Pt:Skin:Nom
+Emily,Taylor,56840-2,Severe Bronchospasm,ordinal,2025-05-18 09:30:00,2025-05-20 10:00:00,female,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Emily,Taylor,30313-1,12.5,gr/dl,2025-05-18 17:30:00,2025-05-21 10:00:00,female,Hemoglobin:MCnc:Pt:BldA:Qn
+Emily,Taylor,6690-2,4800,10³/µL,2025-05-18 17:30:00,2025-05-21 10:00:00,female,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Emily,Taylor,8310-5,37.1,Celsious,2025-05-18 17:30:00,2025-05-21 10:00:00,female,Body temperature:Temp:Pt:^Patient:Qn
+Emily,Taylor,75275-8,,ordinal,2025-05-18 17:30:00,2025-05-21 10:00:00,female,Cognitive function:Imp:Pt:^Patient:Nom
+Emily,Taylor,39106-0,Erythema,ordinal,2025-05-18 17:30:00,2025-05-21 10:00:00,female,Temperature:Find:Pt:Skin:Nom
+Emily,Taylor,56840-2,,ordinal,2025-05-18 17:30:00,2025-05-21 10:00:00,female,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Jessica,Anderson,30313-1,6.8,gr/dl,2025-05-18 10:30:00,2025-05-20 10:00:00,female,Hemoglobin:MCnc:Pt:BldA:Qn
+Jessica,Anderson,6690-2,2800,10³/µL,2025-05-18 10:30:00,2025-05-20 10:00:00,female,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Jessica,Anderson,8310-5,36.7,Celsious,2025-05-18 10:30:00,2025-05-20 10:00:00,female,Body temperature:Temp:Pt:^Patient:Qn
+Jessica,Anderson,75275-8,,ordinal,2025-05-18 10:30:00,2025-05-20 10:00:00,female,Cognitive function:Imp:Pt:^Patient:Nom
+Jessica,Anderson,39106-0,Erythema,ordinal,2025-05-18 10:30:00,2025-05-20 10:00:00,female,Temperature:Find:Pt:Skin:Nom
+Jessica,Anderson,56840-2,,ordinal,2025-05-18 10:30:00,2025-05-20 10:00:00,female,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Jessica,Anderson,30313-1,9.2,gr/dl,2025-05-18 18:30:00,2025-05-21 10:00:00,female,Hemoglobin:MCnc:Pt:BldA:Qn
+Jessica,Anderson,6690-2,4200,10³/µL,2025-05-18 18:30:00,2025-05-21 10:00:00,female,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Jessica,Anderson,8310-5,37.4,Celsious,2025-05-18 18:30:00,2025-05-21 10:00:00,female,Body temperature:Temp:Pt:^Patient:Qn
+Jessica,Anderson,75275-8,Shaking,ordinal,2025-05-18 18:30:00,2025-05-21 10:00:00,female,Cognitive function:Imp:Pt:^Patient:Nom
+Jessica,Anderson,39106-0,Vesiculation,ordinal,2025-05-18 18:30:00,2025-05-21 10:00:00,female,Temperature:Find:Pt:Skin:Nom
+Jessica,Anderson,56840-2,Edema,ordinal,2025-05-18 18:30:00,2025-05-21 10:00:00,female,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Ashley,Thomas,30313-1,15.5,gr/dl,2025-05-18 11:30:00,2025-05-20 10:00:00,female,Hemoglobin:MCnc:Pt:BldA:Qn
+Ashley,Thomas,6690-2,8500,10³/µL,2025-05-18 11:30:00,2025-05-20 10:00:00,female,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Ashley,Thomas,8310-5,39.2,Celsious,2025-05-18 11:30:00,2025-05-20 10:00:00,female,Body temperature:Temp:Pt:^Patient:Qn
+Ashley,Thomas,75275-8,Recurrent Rigor,ordinal,2025-05-18 11:30:00,2025-05-20 10:00:00,female,Cognitive function:Imp:Pt:^Patient:Nom
+Ashley,Thomas,39106-0,Desquamation,ordinal,2025-05-18 11:30:00,2025-05-20 10:00:00,female,Temperature:Find:Pt:Skin:Nom
+Ashley,Thomas,56840-2,Anaphylactic Shock,ordinal,2025-05-18 11:30:00,2025-05-20 10:00:00,female,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Ashley,Thomas,30313-1,13.8,gr/dl,2025-05-18 19:30:00,2025-05-21 10:00:00,female,Hemoglobin:MCnc:Pt:BldA:Qn
+Ashley,Thomas,6690-2,5200,10³/µL,2025-05-18 19:30:00,2025-05-21 10:00:00,female,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Ashley,Thomas,8310-5,37.8,Celsious,2025-05-18 19:30:00,2025-05-21 10:00:00,female,Body temperature:Temp:Pt:^Patient:Qn
+Ashley,Thomas,75275-8,Shaking,ordinal,2025-05-18 19:30:00,2025-05-21 10:00:00,female,Cognitive function:Imp:Pt:^Patient:Nom
+Ashley,Thomas,39106-0,Vesiculation,ordinal,2025-05-18 19:30:00,2025-05-21 10:00:00,female,Temperature:Find:Pt:Skin:Nom
+Ashley,Thomas,56840-2,Bronchospasm,ordinal,2025-05-18 19:30:00,2025-05-21 10:00:00,female,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Brittany,Jackson,30313-1,6.0,gr/dl,2025-05-18 12:30:00,2025-05-20 10:00:00,female,Hemoglobin:MCnc:Pt:BldA:Qn
+Brittany,Jackson,6690-2,2200,10³/µL,2025-05-18 12:30:00,2025-05-20 10:00:00,female,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Brittany,Jackson,8310-5,36.4,Celsious,2025-05-18 12:30:00,2025-05-20 10:00:00,female,Body temperature:Temp:Pt:^Patient:Qn
+Brittany,Jackson,75275-8,,ordinal,2025-05-18 12:30:00,2025-05-20 10:00:00,female,Cognitive function:Imp:Pt:^Patient:Nom
+Brittany,Jackson,39106-0,Erythema,ordinal,2025-05-18 12:30:00,2025-05-20 10:00:00,female,Temperature:Find:Pt:Skin:Nom
+Brittany,Jackson,56840-2,,ordinal,2025-05-18 12:30:00,2025-05-20 10:00:00,female,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+Brittany,Jackson,30313-1,8.5,gr/dl,2025-05-18 20:30:00,2025-05-21 10:00:00,female,Hemoglobin:MCnc:Pt:BldA:Qn
+Brittany,Jackson,6690-2,4000,10³/µL,2025-05-18 20:30:00,2025-05-21 10:00:00,female,Leukocytes:NCnc:Pt:Bld:Qn:Automated count
+Brittany,Jackson,8310-5,37.2,Celsious,2025-05-18 20:30:00,2025-05-21 10:00:00,female,Body temperature:Temp:Pt:^Patient:Qn
+Brittany,Jackson,75275-8,Shaking,ordinal,2025-05-18 20:30:00,2025-05-21 10:00:00,female,Cognitive function:Imp:Pt:^Patient:Nom
+Brittany,Jackson,39106-0,Vesiculation,ordinal,2025-05-18 20:30:00,2025-05-21 10:00:00,female,Temperature:Find:Pt:Skin:Nom
+Brittany,Jackson,56840-2,Edema,ordinal,2025-05-18 20:30:00,2025-05-21 10:00:00,female,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn

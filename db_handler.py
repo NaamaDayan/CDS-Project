@@ -62,7 +62,7 @@ class DBHandler:
                 (self.df['first_name'] == first_name) &
                 (self.df['last_name'] == last_name) &
                 (self.df['LOINC-NUM'] == loinc_num) &
-                (self.df['measurement_datetime'] == measurement_datetime)
+                (self.df['measurement_datetime'].dt.date == measurement_datetime.date())
             )
             
             if not any(mask):
@@ -100,7 +100,7 @@ class DBHandler:
                 (self.df['first_name'] == first_name) &
                 (self.df['last_name'] == last_name) &
                 (self.df['LOINC-NUM'] == loinc_num) &
-                (self.df['measurement_datetime'] == measurement_datetime)
+                (self.df['measurement_datetime'].dt.date == measurement_datetime.date())
             )
             
             if not any(mask):
