@@ -921,7 +921,7 @@ def update_record(
         elif measurement_datetime:
             measurement_datetime_combined = measurement_datetime
 
-        success = db_handler.update_record(
+        success, message, changed_records = db_handler.update_record(
             first_name,
             last_name,
             loinc,
@@ -929,9 +929,29 @@ def update_record(
             update_datetime_combined,
             measurement_datetime_combined,
         )
-        return (
-            "Record updated successfully." if success[0] else "Failed to update record."
-        )
+
+        if success:
+            # Create the result message
+            result = [html.H4("✅ " + message)]
+
+            # Add the changed records table if available
+            if changed_records is not None and not changed_records.empty:
+                result.append(html.H5("Changed Records:"))
+                result.append(
+                    dash_table.DataTable(
+                        data=changed_records.to_dict("records"),
+                        columns=[{"name": i, "id": i} for i in changed_records.columns],
+                        style_table={"overflowX": "auto"},
+                        style_cell={"textAlign": "left", "padding": "10px"},
+                        style_header={
+                            "backgroundColor": "rgb(230, 230, 230)",
+                            "fontWeight": "bold",
+                        },
+                    )
+                )
+            return result
+        else:
+            return f"❌ {message}"
     except Exception as e:
         return f"Error: {str(e)}"
 
@@ -976,16 +996,36 @@ def delete_record(
         elif update_datetime:
             update_datetime_combined = update_datetime
 
-        success = db_handler.delete_record(
+        success, message, changed_records = db_handler.delete_record(
             first_name,
             last_name,
             loinc,
             measurement_datetime_combined,
             update_datetime_combined,
         )
-        return (
-            "Record deleted successfully." if success[0] else "Failed to delete record."
-        )
+
+        if success:
+            # Create the result message
+            result = [html.H4("✅ " + message)]
+
+            # Add the changed records table if available
+            if changed_records is not None and not changed_records.empty:
+                result.append(html.H5("Changed Records:"))
+                result.append(
+                    dash_table.DataTable(
+                        data=changed_records.to_dict("records"),
+                        columns=[{"name": i, "id": i} for i in changed_records.columns],
+                        style_table={"overflowX": "auto"},
+                        style_cell={"textAlign": "left", "padding": "10px"},
+                        style_header={
+                            "backgroundColor": "rgb(230, 230, 230)",
+                            "fontWeight": "bold",
+                        },
+                    )
+                )
+            return result
+        else:
+            return f"❌ {message}"
     except Exception as e:
         return f"Error: {str(e)}"
 

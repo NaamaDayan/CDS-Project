@@ -98,7 +98,7 @@ class DBHandler:
     ):
         """
         Update a record with the given criteria.
-        Returns (success, result) tuple.
+        Returns (success, result, changed_records) tuple.
         """
         try:
             # Convert datetime strings to datetime objects
@@ -127,10 +127,17 @@ class DBHandler:
                 )
 
             if not any(mask):
-                return False, "No matching record found"
+                return False, "No matching record found", None
+
+            # Get the most recent record based on update_datetime
+            matching_records = self.df[mask]
+            # Sort by update_datetime in descending order (most recent first) and take the first record
+            most_recent_record = matching_records.sort_values(
+                "update_datetime", ascending=False
+            ).iloc[0]
 
             # Create a new record with the updated value
-            new_record = self.df[mask].iloc[0].copy()
+            new_record = most_recent_record.copy()
             new_record["Value"] = value
             new_record["update_datetime"] = update_datetime_parsed
 
@@ -142,17 +149,19 @@ class DBHandler:
             # Save to CSV
             self.df.to_csv(self.csv_path, index=False)
 
-            return True, None
+            # Return the changed records (original and updated)
+            changed_records = pd.DataFrame([most_recent_record, new_record])
+            return True, "Record updated successfully", changed_records
 
         except Exception as e:
-            return False, str(e)
+            return False, str(e), None
 
     def delete_record(
         self, first_name, last_name, loinc_num, measurement_datetime, update_datetime
     ):
         """
         Mark a record as deleted by creating a new record with 'DELETED' value.
-        Returns (success, result) tuple.
+        Returns (success, result, changed_records) tuple.
         """
         try:
             # Convert datetime strings to datetime objects
@@ -181,10 +190,17 @@ class DBHandler:
                 )
 
             if not any(mask):
-                return False, "No matching record found"
+                return False, "No matching record found", None
+
+            # Get the most recent record based on update_datetime
+            matching_records = self.df[mask]
+            # Sort by update_datetime in descending order (most recent first) and take the first record
+            most_recent_record = matching_records.sort_values(
+                "update_datetime", ascending=False
+            ).iloc[0]
 
             # Create a new record with 'DELETED' value
-            new_record = self.df[mask].iloc[0].copy()
+            new_record = most_recent_record.copy()
             new_record["Value"] = "DELETED"
             new_record["update_datetime"] = update_datetime_parsed
 
@@ -196,7 +212,9 @@ class DBHandler:
             # Save to CSV
             self.df.to_csv(self.csv_path, index=False)
 
-            return True, None
+            # Return the changed records (original and deleted)
+            changed_records = pd.DataFrame([most_recent_record, new_record])
+            return True, "Record deleted successfully", changed_records
 
         except Exception as e:
-            return False, str(e)
+            return False, str(e), None
