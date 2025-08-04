@@ -483,6 +483,12 @@ app.layout = dbc.Container(
                                                         dbc.Col(
                                                             [
                                                                 dbc.Button(
+                                                                    "Add Row",
+                                                                    id="hem-add-row-button",
+                                                                    color="info",
+                                                                    className="me-2",
+                                                                ),
+                                                                dbc.Button(
                                                                     "Reset",
                                                                     id="hem-reset-button",
                                                                     color="warning",
@@ -548,6 +554,12 @@ app.layout = dbc.Container(
                                                         dbc.Col(
                                                             [
                                                                 dbc.Button(
+                                                                    "Add Row",
+                                                                    id="hemat-add-row-button",
+                                                                    color="info",
+                                                                    className="me-2",
+                                                                ),
+                                                                dbc.Button(
                                                                     "Reset",
                                                                     id="hemat-reset-button",
                                                                     color="warning",
@@ -585,6 +597,12 @@ app.layout = dbc.Container(
                                                     [
                                                         dbc.Col(
                                                             [
+                                                                dbc.Button(
+                                                                    "Add Row",
+                                                                    id="sys-add-row-button",
+                                                                    color="info",
+                                                                    className="me-2",
+                                                                ),
                                                                 dbc.Button(
                                                                     "Reset",
                                                                     id="sys-reset-button",
@@ -651,6 +669,12 @@ app.layout = dbc.Container(
                                                         dbc.Col(
                                                             [
                                                                 dbc.Button(
+                                                                    "Add Row",
+                                                                    id="rec-add-row-button",
+                                                                    color="info",
+                                                                    className="me-2",
+                                                                ),
+                                                                dbc.Button(
                                                                     "Reset",
                                                                     id="rec-reset-button",
                                                                     color="warning",
@@ -686,6 +710,12 @@ app.layout = dbc.Container(
                                                 html.Div(id="validity-table-container"),
                                                 html.Div(
                                                     [
+                                                        dbc.Button(
+                                                            "Add Row",
+                                                            id="validity-add-row-button",
+                                                            color="info",
+                                                            className="me-2",
+                                                        ),
                                                         dbc.Button(
                                                             "Reset",
                                                             id="validity-reset-button",
@@ -1190,10 +1220,14 @@ def update_validity_table(refresh_trigger):
 # Save and Reset callbacks for each table
 @app.callback(
     [Output("hem-output", "children"), Output("hem-refresh-trigger", "children")],
-    [Input("hem-save-button", "n_clicks"), Input("hem-reset-button", "n_clicks")],
+    [
+        Input("hem-save-button", "n_clicks"),
+        Input("hem-reset-button", "n_clicks"),
+        Input("hem-add-row-button", "n_clicks"),
+    ],
     [State("hem-gender", "value"), State("hem-table-container", "children")],
 )
-def handle_hem_changes(save_clicks, reset_clicks, gender, table_container):
+def handle_hem_changes(save_clicks, reset_clicks, add_clicks, gender, table_container):
     if not gender:
         return "Please select a gender", ""
 
@@ -1202,6 +1236,40 @@ def handle_hem_changes(save_clicks, reset_clicks, gender, table_container):
         return "", ""
 
     button_id = ctx.triggered[0]["prop_id"].split(".")[0]
+
+    if button_id == "hem-add-row-button":
+        try:
+            # Get current data from the table
+            if (
+                table_container
+                and isinstance(table_container, dict)
+                and "props" in table_container
+            ):
+                current_data = table_container["props"]["data"]
+            else:
+                current_data = []
+
+            # Create a new empty row
+            new_row = {}
+            if current_data:
+                # Get column names from existing data
+                columns = list(current_data[0].keys())
+                for col in columns:
+                    new_row[col] = ""
+            else:
+                # Default columns for hemoglobin states
+                new_row = {"state": "", "low_range": "", "high_range": ""}
+
+            # Add the new row
+            current_data.append(new_row)
+
+            # Update the knowledge database with the new data
+            df = pd.DataFrame(current_data)
+            knowledge_db.hemoglobin_tables[Gender(gender)] = df
+
+            return "Row added successfully", "refresh"
+        except Exception as e:
+            return f"Error adding row: {str(e)}", ""
 
     if button_id == "hem-reset-button":
         # Reset to initial state
@@ -1222,10 +1290,16 @@ def handle_hem_changes(save_clicks, reset_clicks, gender, table_container):
 
 @app.callback(
     [Output("hemat-output", "children"), Output("hemat-refresh-trigger", "children")],
-    [Input("hemat-save-button", "n_clicks"), Input("hemat-reset-button", "n_clicks")],
+    [
+        Input("hemat-save-button", "n_clicks"),
+        Input("hemat-reset-button", "n_clicks"),
+        Input("hemat-add-row-button", "n_clicks"),
+    ],
     [State("hemat-gender", "value"), State("hemat-table-container", "children")],
 )
-def handle_hemat_changes(save_clicks, reset_clicks, gender, table_container):
+def handle_hemat_changes(
+    save_clicks, reset_clicks, add_clicks, gender, table_container
+):
     if not gender:
         return "Please select a gender", ""
 
@@ -1234,6 +1308,40 @@ def handle_hemat_changes(save_clicks, reset_clicks, gender, table_container):
         return "", ""
 
     button_id = ctx.triggered[0]["prop_id"].split(".")[0]
+
+    if button_id == "hemat-add-row-button":
+        try:
+            # Get current data from the table
+            if (
+                table_container
+                and isinstance(table_container, dict)
+                and "props" in table_container
+            ):
+                current_data = table_container["props"]["data"]
+            else:
+                current_data = []
+
+            # Create a new empty row
+            new_row = {}
+            if current_data:
+                # Get column names from existing data
+                columns = list(current_data[0].keys())
+                for col in columns:
+                    new_row[col] = ""
+            else:
+                # Default columns for hematological states
+                new_row = {"state": "", "low_range": "", "high_range": ""}
+
+            # Add the new row
+            current_data.append(new_row)
+
+            # Update the knowledge database with the new data
+            df = pd.DataFrame(current_data)
+            knowledge_db.hematological_tables[Gender(gender)] = df
+
+            return "Row added successfully", "refresh"
+        except Exception as e:
+            return f"Error adding row: {str(e)}", ""
 
     if button_id == "hemat-reset-button":
         # Reset to initial state
@@ -1265,15 +1373,53 @@ def handle_hemat_changes(save_clicks, reset_clicks, gender, table_container):
 
 @app.callback(
     [Output("sys-output", "children"), Output("sys-refresh-trigger", "children")],
-    [Input("sys-save-button", "n_clicks"), Input("sys-reset-button", "n_clicks")],
+    [
+        Input("sys-save-button", "n_clicks"),
+        Input("sys-reset-button", "n_clicks"),
+        Input("sys-add-row-button", "n_clicks"),
+    ],
     [State("sys-table-container", "children")],
 )
-def handle_sys_changes(save_clicks, reset_clicks, table_container):
+def handle_sys_changes(save_clicks, reset_clicks, add_clicks, table_container):
     ctx = dash.callback_context
     if not ctx.triggered:
         return "", ""
 
     button_id = ctx.triggered[0]["prop_id"].split(".")[0]
+
+    if button_id == "sys-add-row-button":
+        try:
+            # Get current data from the table
+            if (
+                table_container
+                and isinstance(table_container, dict)
+                and "props" in table_container
+            ):
+                current_data = table_container["props"]["data"]
+            else:
+                current_data = []
+
+            # Create a new empty row
+            new_row = {}
+            if current_data:
+                # Get column names from existing data
+                columns = list(current_data[0].keys())
+                for col in columns:
+                    new_row[col] = ""
+            else:
+                # Default columns for systemic table
+                new_row = {"test_name": "", "good-before": "", "good-after": ""}
+
+            # Add the new row
+            current_data.append(new_row)
+
+            # Update the knowledge database with the new data
+            df = pd.DataFrame(current_data)
+            knowledge_db.systemic_table = df
+
+            return "Row added successfully", "refresh"
+        except Exception as e:
+            return f"Error adding row: {str(e)}", ""
 
     if button_id == "sys-reset-button":
         # Reset to initial state
@@ -1296,10 +1442,14 @@ def handle_sys_changes(save_clicks, reset_clicks, table_container):
 
 @app.callback(
     [Output("rec-output", "children"), Output("rec-refresh-trigger", "children")],
-    [Input("rec-save-button", "n_clicks"), Input("rec-reset-button", "n_clicks")],
+    [
+        Input("rec-save-button", "n_clicks"),
+        Input("rec-reset-button", "n_clicks"),
+        Input("rec-add-row-button", "n_clicks"),
+    ],
     [State("rec-gender", "value"), State("rec-table-container", "children")],
 )
-def handle_rec_changes(save_clicks, reset_clicks, gender, table_container):
+def handle_rec_changes(save_clicks, reset_clicks, add_clicks, gender, table_container):
     if not gender:
         return "Please select a gender", ""
 
@@ -1308,6 +1458,40 @@ def handle_rec_changes(save_clicks, reset_clicks, gender, table_container):
         return "", ""
 
     button_id = ctx.triggered[0]["prop_id"].split(".")[0]
+
+    if button_id == "rec-add-row-button":
+        try:
+            # Get current data from the table
+            if (
+                table_container
+                and isinstance(table_container, dict)
+                and "props" in table_container
+            ):
+                current_data = table_container["props"]["data"]
+            else:
+                current_data = []
+
+            # Create a new empty row
+            new_row = {}
+            if current_data:
+                # Get column names from existing data
+                columns = list(current_data[0].keys())
+                for col in columns:
+                    new_row[col] = ""
+            else:
+                # Default columns for recommendations
+                new_row = {"state": "", "recommendation": "", "color": ""}
+
+            # Add the new row
+            current_data.append(new_row)
+
+            # Update the knowledge database with the new data
+            df = pd.DataFrame(current_data)
+            knowledge_db.recommendations[Gender(gender)] = df
+
+            return "Row added successfully", "refresh"
+        except Exception as e:
+            return f"Error adding row: {str(e)}", ""
 
     if button_id == "rec-reset-button":
         # Reset to initial state
@@ -1334,15 +1518,50 @@ def handle_rec_changes(save_clicks, reset_clicks, gender, table_container):
     [
         Input("validity-save-button", "n_clicks"),
         Input("validity-reset-button", "n_clicks"),
+        Input("validity-add-row-button", "n_clicks"),
     ],
     [State("validity-table-container", "children")],
 )
-def handle_validity_changes(save_clicks, reset_clicks, table_container):
+def handle_validity_changes(save_clicks, reset_clicks, add_clicks, table_container):
     ctx = dash.callback_context
     if not ctx.triggered:
         return "", ""
 
     button_id = ctx.triggered[0]["prop_id"].split(".")[0]
+
+    if button_id == "validity-add-row-button":
+        try:
+            # Get current data from the table
+            if (
+                table_container
+                and isinstance(table_container, dict)
+                and "props" in table_container
+            ):
+                current_data = table_container["props"]["data"]
+            else:
+                current_data = []
+
+            # Create a new empty row
+            new_row = {}
+            if current_data:
+                # Get column names from existing data
+                columns = list(current_data[0].keys())
+                for col in columns:
+                    new_row[col] = ""
+            else:
+                # Default columns for test validity
+                new_row = {"test_name": "", "good-before": "", "good-after": ""}
+
+            # Add the new row
+            current_data.append(new_row)
+
+            # Update the knowledge database with the new data
+            df = pd.DataFrame(current_data)
+            knowledge_db.test_validity_table = df
+
+            return "Row added successfully", "refresh"
+        except Exception as e:
+            return f"Error adding row: {str(e)}", ""
 
     if button_id == "validity-reset-button":
         # Reset to initial state
