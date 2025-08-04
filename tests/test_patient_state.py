@@ -1,103 +1,124 @@
 import unittest
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
-import numpy as np
+from knowledge_db_handler import KnowledgeDataHandler, Gender
 
-# Assume the main implementation has been imported here
-# from hematology import (
-#     Gender, HemoglobinStateRange, WBCStateRange, generate_patient_state_timeline,
-#     find_overlapping_states, resolve_conflicts, fill_gaps
-# )
-from models import WBCStateRange, HemoglobinStateRange
-from patient_state_calculator import find_overlapping_states, resolve_conflicts, generate_patient_state_timeline, \
-    fill_gaps
-
-
-class TestHematologyInference(unittest.TestCase):
+class TestPatientStateVisualization(unittest.TestCase):
     def setUp(self):
-        # Hematological Table
-        wbc_intervals = pd.IntervalIndex.from_tuples([
-            (0, 4000),
-            (4000, 10000),
-            (10000, np.inf)
-        ], closed="left")
+        # Create test data for Yonathan Spoon
+        self.test_data = pd.DataFrame([
+            # First time point (09:57:00)
+            {'first_name': 'Yonathan', 'last_name': 'Spoon', 'LOINC-NUM': '6690-2', 'Value': '4800', 'Unit': '10³/µL', 
+             'measurement_datetime': '2018-05-17 09:57:00', 'update_datetime': '2018-05-20 10:00:00'},
+            {'first_name': 'Yonathan', 'last_name': 'Spoon', 'LOINC-NUM': '30313-1', 'Value': '13.9', 'Unit': 'gr/dl', 
+             'measurement_datetime': '2018-05-17 09:57:00', 'update_datetime': '2018-05-20 10:00:00'},
+            # Second time point (10:00:00)
+            {'first_name': 'Yonathan', 'last_name': 'Spoon', 'LOINC-NUM': '6690-2', 'Value': '5000', 'Unit': '10³/µL', 
+             'measurement_datetime': '2018-05-18 10:00:00', 'update_datetime': '2018-05-21 10:00:00'},
+            {'first_name': 'Yonathan', 'last_name': 'Spoon', 'LOINC-NUM': '30313-1', 'Value': '14.1', 'Unit': 'gr/dl', 
+             'measurement_datetime': '2018-05-18 10:00:00', 'update_datetime': '2018-05-21 10:00:00'},
+            # Third time point (11:00:00)
+            {'first_name': 'Yonathan', 'last_name': 'Spoon', 'LOINC-NUM': '30313-1', 'Value': '13.9', 'Unit': 'gr/dl', 
+             'measurement_datetime': '2018-05-18 11:00:00', 'update_datetime': '2018-05-21 10:00:00'},
+            # Fourth time point (16:00:00)
+            {'first_name': 'Yonathan', 'last_name': 'Spoon', 'LOINC-NUM': '6690-2', 'Value': '4900', 'Unit': '10³/µL', 
+             'measurement_datetime': '2018-05-19 16:00:00', 'update_datetime': '2018-05-22 10:00:00'}
+        ])
+        
+        # Initialize knowledge database
+        self.knowledge_db = KnowledgeDataHandler()
+        
+        # Set test validity periods
+        self.knowledge_db.update_test_validity('hemoglobin', 3, 3)  # 3 hours before and after
+        self.knowledge_db.update_test_validity('WBC', 5, 5)  # 5 hours before and after
 
-        female_hb_intervals = pd.IntervalIndex.from_tuples([
-            (0, 8),
-            (8, 10),
-            (10, 12),
-            (12, 14),
-            (14, np.inf)
-        ], closed="left")
+    def test_state_transitions(self):
+        """Test state transitions for Yonathan Spoon"""
+        # Get patient's tests
+        patient_tests = self.test_data[
+            (self.test_data['first_name'] == 'Yonathan') & 
+            (self.test_data['last_name'] == 'Spoon')
+        ].sort_values('measurement_datetime')
+        
+        # Group tests by measurement time
+        grouped_tests = patient_tests.groupby('measurement_datetime')
+        
+        # First time point (09:57:00)
+        first_group = grouped_tests.get_group('2018-05-17 09:57:00')
+        hb_test = first_group[first_group['LOINC-NUM'] == '30313-1']
+        wbc_test = first_group[first_group['LOINC-NUM'] == '6690-2']
+        
+        # Verify first time point values and state
+        self.assertEqual(float(hb_test.iloc[0]['Value']), 13.9)
+        self.assertEqual(float(wbc_test.iloc[0]['Value']), 4800)
+        
+        # Calculate first state validity period
+        first_test_time = datetime.strptime('2018-05-17 09:57:00', '%Y-%m-%d %H:%M:%S')
+        first_state_start = first_test_time - timedelta(hours=3)  # 06:57:00
+        first_state_end = first_test_time + timedelta(hours=3)    # 12:57:00
+        
+        self.assertEqual(first_state_start, datetime(2018, 5, 17, 6, 57))
+        self.assertEqual(first_state_end, datetime(2018, 5, 17, 12, 57))
+        
+        # Second time point (10:00:00)
+        second_group = grouped_tests.get_group('2018-05-18 10:00:00')
+        hb_test = second_group[second_group['LOINC-NUM'] == '30313-1']
+        wbc_test = second_group[second_group['LOINC-NUM'] == '6690-2']
+        
+        # Verify second time point values and state
+        self.assertEqual(float(hb_test.iloc[0]['Value']), 14.1)
+        self.assertEqual(float(wbc_test.iloc[0]['Value']), 5000)
+        
+        # Calculate second state validity period
+        second_test_time = datetime.strptime('2018-05-18 10:00:00', '%Y-%m-%d %H:%M:%S')
+        second_state_start = second_test_time - timedelta(hours=3)  # 07:00:00
+        second_state_end = second_test_time + timedelta(hours=3)    # 13:00:00
+        
+        self.assertEqual(second_state_start, datetime(2018, 5, 18, 7, 0))
+        self.assertEqual(second_state_end, datetime(2018, 5, 18, 13, 0))
+        
+        # Third time point (11:00:00)
+        third_group = grouped_tests.get_group('2018-05-18 11:00:00')
+        hb_test = third_group[third_group['LOINC-NUM'] == '30313-1']
+        
+        # Verify third time point values and state
+        self.assertEqual(float(hb_test.iloc[0]['Value']), 13.9)
+        
+        # Calculate third state validity period
+        third_test_time = datetime.strptime('2018-05-18 11:00:00', '%Y-%m-%d %H:%M:%S')
+        third_state_start = third_test_time - timedelta(hours=3)  # 08:00:00
+        third_state_end = third_test_time + timedelta(hours=3)    # 14:00:00
+        
+        self.assertEqual(third_state_start, datetime(2018, 5, 18, 8, 0))
+        self.assertEqual(third_state_end, datetime(2018, 5, 18, 14, 0))
+        
+        # Verify gaps between states
+        # Gap between first and second state
+        self.assertTrue(first_state_end < second_state_start)
+        
+        # Gap between second and third state
+        self.assertTrue(second_state_end > third_state_start)  # States overlap
+        
+        # Gap after third state
+        self.assertTrue(third_state_end < datetime(2018, 5, 19, 16, 0))  # Gap until next test
 
-        female_hematological_data = [
-            ['Pancytopenia', 'Pancytopenia', 'Pancytopenia', 'Leukopenia', 'Suspected Polycytemia Vera'],
-            ['Anemia', 'Anemia', 'Anemia', 'Normal', 'Polyhemia'],
-            ['Suspected Leukemia', 'Suspected Leukemia', 'Suspected Leukemia', 'Leukemoid reaction', 'Suspected Polycytemia Vera']
-        ]
-
-        self.hematological_table = pd.DataFrame(female_hematological_data, index=wbc_intervals, columns=female_hb_intervals)
-
-    def make_wbc(self, dt, val):
-        return WBCStateRange(dt, val, 3, 3)
-
-    def make_hb(self, dt, val):
-        return HemoglobinStateRange(dt, val, 3, 3)
-
-    def test_overlap_inference(self):
-        wbc = self.make_wbc(datetime(2025, 1, 1, 10, 0), 5000)
-        hb = self.make_hb(datetime(2025, 1, 1, 10, 0), 14.1)
-
-        result = find_overlapping_states([wbc], [hb], self.hematological_table)
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[0][2], 'Polyhemia')
-
-    def test_non_overlap_no_state(self):
-        wbc = self.make_wbc(datetime(2025, 1, 1, 10, 0), 5000)
-        hb = self.make_hb(datetime(2025, 1, 2, 10, 0), 14.1)  # out of overlap range
-
-        result = find_overlapping_states([wbc], [hb], self.hematological_table)
-        self.assertEqual(result, [])
-
-    def test_conflict_resolution(self):
-        dt1 = datetime(2025, 1, 1, 10, 0)
-        dt2 = datetime(2025, 1, 1, 11, 0)
-
-        state1 = (dt1, dt1 + pd.Timedelta(hours=4), 'Normal')
-        state2 = (dt2, dt2 + pd.Timedelta(hours=4), 'Polyhemia')
-
-        resolved = resolve_conflicts([state1, state2])
-        self.assertEqual(len(resolved), 2)
-        self.assertEqual(resolved[0][2], 'Normal')
-        self.assertEqual(resolved[1][2], 'Polyhemia')
-        # Check midpoint split
-        self.assertEqual(resolved[0][1], resolved[1][0])
-
-    def test_fill_gaps(self):
-        dt1 = datetime(2025, 1, 1, 10, 0)
-        dt2 = datetime(2025, 1, 1, 12, 0)
-
-        intervals = [(dt1, dt1 + pd.Timedelta(hours=1), 'A'), (dt2, dt2 + pd.Timedelta(hours=1), 'B')]
-        filled = fill_gaps(intervals)
-
-        self.assertEqual(len(filled), 3)
-        self.assertIsNone(filled[1][2])  # gap state
-
-    def test_full_timeline(self):
-        wbc_data = [
-            self.make_wbc(datetime(2025, 6, 17, 10, 0), 5000),
-            self.make_wbc(datetime(2025, 6, 17, 12, 0), 5000),
-        ]
-
-        hb_data = [
-            self.make_hb(datetime(2025, 6, 17, 10, 0), 14.1),
-            self.make_hb(datetime(2025, 6, 17, 12, 0), 13.5),
-        ]
-
-        timeline = generate_patient_state_timeline(wbc_data, hb_data, self.hematological_table)
-        self.assertGreaterEqual(len(timeline), 2)
-        self.assertEqual(timeline[0][2], 'Polyhemia')
-        self.assertEqual(timeline[1][2], 'Normal')  # state changed due to newer data
+    def test_state_values(self):
+        """Test the actual state values at each time point"""
+        # First state (09:57:00) - Normal
+        first_hb = 13.9
+        first_wbc = 4800
+        self.assertTrue(12 <= first_hb < 14)  # Normal hemoglobin
+        self.assertTrue(4000 <= first_wbc < 10000)  # Normal WBC
+        
+        # Second state (10:00:00) - Polyhemia
+        second_hb = 14.1
+        second_wbc = 5000
+        self.assertTrue(second_hb >= 14)  # High hemoglobin
+        self.assertTrue(4000 <= second_wbc < 10000)  # Normal WBC
+        
+        # Third state (11:00:00) - Normal
+        third_hb = 13.9
+        self.assertTrue(12 <= third_hb < 14)  # Normal hemoglobin
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main() 

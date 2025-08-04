@@ -85,7 +85,30 @@ class DBHandler:
                     filtered_df["update_datetime"].dt.date <= to_datetime_parsed.date()
                 )
 
-        return filtered_df[mask]
+        # Get the filtered records
+        result_df = filtered_df[mask]
+
+        # Group by first_name, last_name, loinc_num, and measurement_datetime
+        # and keep only the record with the latest update_datetime for each group
+        if not result_df.empty and 'DELETED' in result_df['Value'].values:
+            # Sort by update_datetime in descending order to ensure we get the latest
+            result_df = result_df.sort_values("update_datetime", ascending=False)
+
+            # Group by the specified columns and take the first record (which is the latest due to sorting)
+            result_df = (
+                result_df.groupby(
+                    ["first_name", "last_name", "LOINC-NUM", "measurement_datetime"]
+                )
+                .first()
+                .reset_index()
+            )
+
+            # Sort the final result by update_datetime in descending order
+            result_df = result_df.sort_values("update_datetime", ascending=False)
+
+        result_df = result_df[result_df["Value"] != "DELETED"]
+
+        return result_df
 
     def update_record(
         self,

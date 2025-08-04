@@ -1,5 +1,6 @@
 import dash
 from dash import html, dcc, Input, Output, State, dash_table
+from dash.exceptions import PreventUpdate
 import dash_bootstrap_components as dbc
 from datetime import datetime, timedelta
 import pandas as pd
@@ -38,12 +39,6 @@ patient_options = [
     {"label": name, "value": name} for name in patient_names["full_name"]
 ]
 
-# Generate time options for dropdowns (00:00 to 23:59 in 15-minute intervals)
-time_options = []
-for hour in range(24):
-    for minute in [0, 15, 30, 45]:
-        time_str = f"{hour:02d}:{minute:02d}"
-        time_options.append({"label": time_str, "value": time_str})
 
 app.layout = dbc.Container(
     [
@@ -111,11 +106,11 @@ app.layout = dbc.Container(
                                                         dbc.Label(
                                                             "Measurement Time (Optional)"
                                                         ),
-                                                        dcc.Dropdown(
+                                                        dbc.Input(
                                                             id="retrieve-measurement-time",
-                                                            options=time_options,
-                                                            placeholder="Select time...",
-                                                            clearable=True,
+                                                            type="text",
+                                                            placeholder="HH:MM (e.g., 14:30)",
+                                                            pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$",
                                                         ),
                                                     ],
                                                     width=3,
@@ -140,11 +135,11 @@ app.layout = dbc.Container(
                                                         dbc.Label(
                                                             "Start Time (Optional)"
                                                         ),
-                                                        dcc.Dropdown(
+                                                        dbc.Input(
                                                             id="retrieve-update-start-time",
-                                                            options=time_options,
-                                                            placeholder="Select time...",
-                                                            clearable=True,
+                                                            type="text",
+                                                            placeholder="HH:MM (e.g., 14:30)",
+                                                            pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$",
                                                         ),
                                                     ],
                                                     width=3,
@@ -165,11 +160,11 @@ app.layout = dbc.Container(
                                                         dbc.Label(
                                                             "End Time (Optional)"
                                                         ),
-                                                        dcc.Dropdown(
+                                                        dbc.Input(
                                                             id="retrieve-update-end-time",
-                                                            options=time_options,
-                                                            placeholder="Select time...",
-                                                            clearable=True,
+                                                            type="text",
+                                                            placeholder="HH:MM (e.g., 14:30)",
+                                                            pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$",
                                                         ),
                                                     ],
                                                     width=3,
@@ -250,21 +245,33 @@ app.layout = dbc.Container(
                                                             id="update-datetime"
                                                         ),
                                                     ],
-                                                    width=3,
+                                                    width=2,
                                                 ),
                                                 dbc.Col(
                                                     [
                                                         dbc.Label(
                                                             "Update Time (Optional)"
                                                         ),
-                                                        dcc.Dropdown(
+                                                        dbc.Input(
                                                             id="update-time",
-                                                            options=time_options,
-                                                            placeholder="Select time...",
-                                                            clearable=True,
+                                                            type="text",
+                                                            placeholder="HH:MM (e.g., 14:30)",
+                                                            pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$",
                                                         ),
                                                     ],
-                                                    width=3,
+                                                    width=2,
+                                                ),
+                                                dbc.Col(
+                                                    [
+                                                        dbc.Button(
+                                                            "Now",
+                                                            id="update-now-button",
+                                                            color="secondary",
+                                                            size="sm",
+                                                            className="mt-4",
+                                                        ),
+                                                    ],
+                                                    width=1,
                                                 ),
                                                 dbc.Col(
                                                     [
@@ -273,21 +280,33 @@ app.layout = dbc.Container(
                                                             id="update-measurement-datetime"
                                                         ),
                                                     ],
-                                                    width=3,
+                                                    width=2,
                                                 ),
                                                 dbc.Col(
                                                     [
                                                         dbc.Label(
                                                             "Measurement Time (Optional)"
                                                         ),
-                                                        dcc.Dropdown(
+                                                        dbc.Input(
                                                             id="update-measurement-time",
-                                                            options=time_options,
-                                                            placeholder="Select time...",
-                                                            clearable=True,
+                                                            type="text",
+                                                            placeholder="HH:MM (e.g., 14:30)",
+                                                            pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$",
                                                         ),
                                                     ],
-                                                    width=3,
+                                                    width=2,
+                                                ),
+                                                dbc.Col(
+                                                    [
+                                                        dbc.Button(
+                                                            "Now",
+                                                            id="update-measurement-now-button",
+                                                            color="secondary",
+                                                            size="sm",
+                                                            className="mt-4",
+                                                        ),
+                                                    ],
+                                                    width=1,
                                                 ),
                                             ]
                                         ),
@@ -357,11 +376,11 @@ app.layout = dbc.Container(
                                                         dbc.Label(
                                                             "Measurement Time (Optional)"
                                                         ),
-                                                        dcc.Dropdown(
+                                                        dbc.Input(
                                                             id="delete-measurement-time",
-                                                            options=time_options,
-                                                            placeholder="Select time...",
-                                                            clearable=True,
+                                                            type="text",
+                                                            placeholder="HH:MM (e.g., 14:30)",
+                                                            pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$",
                                                         ),
                                                     ],
                                                     width=3,
@@ -377,21 +396,33 @@ app.layout = dbc.Container(
                                                             id="delete-update-datetime"
                                                         ),
                                                     ],
-                                                    width=3,
+                                                    width=2,
                                                 ),
                                                 dbc.Col(
                                                     [
                                                         dbc.Label(
                                                             "Update Time (Optional)"
                                                         ),
-                                                        dcc.Dropdown(
+                                                        dbc.Input(
                                                             id="delete-update-time",
-                                                            options=time_options,
-                                                            placeholder="Select time...",
-                                                            clearable=True,
+                                                            type="text",
+                                                            placeholder="HH:MM (e.g., 14:30)",
+                                                            pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$",
                                                         ),
                                                     ],
-                                                    width=3,
+                                                    width=2,
+                                                ),
+                                                dbc.Col(
+                                                    [
+                                                        dbc.Button(
+                                                            "Now",
+                                                            id="delete-update-now-button",
+                                                            color="secondary",
+                                                            size="sm",
+                                                            className="mt-4",
+                                                        ),
+                                                    ],
+                                                    width=1,
                                                 ),
                                             ]
                                         ),
@@ -1674,6 +1705,73 @@ def update_overview_cards(selected_date, selected_time):
 
     except Exception as e:
         return html.Div(f"Error generating overview: {str(e)}", style={"color": "red"})
+
+
+# Callbacks for "Now" buttons
+@app.callback(
+    [
+        Output("update-datetime", "date"),
+        Output("update-time", "value"),
+        Output("update-now-button", "color"),
+    ],
+    [Input("update-now-button", "n_clicks")],
+    prevent_initial_call=True,
+)
+def set_update_now(n_clicks):
+    if n_clicks is None:
+        raise PreventUpdate
+
+    from datetime import datetime
+
+    now = datetime.now()
+    current_date = now.strftime("%Y-%m-%d")
+    current_time = now.strftime("%H:%M")
+
+    return current_date, current_time, "success"
+
+
+@app.callback(
+    [
+        Output("update-measurement-datetime", "date"),
+        Output("update-measurement-time", "value"),
+        Output("update-measurement-now-button", "color"),
+    ],
+    [Input("update-measurement-now-button", "n_clicks")],
+    prevent_initial_call=True,
+)
+def set_update_measurement_now(n_clicks):
+    if n_clicks is None:
+        raise PreventUpdate
+
+    from datetime import datetime
+
+    now = datetime.now()
+    current_date = now.strftime("%Y-%m-%d")
+    current_time = now.strftime("%H:%M")
+
+    return current_date, current_time, "success"
+
+
+@app.callback(
+    [
+        Output("delete-update-datetime", "date"),
+        Output("delete-update-time", "value"),
+        Output("delete-update-now-button", "color"),
+    ],
+    [Input("delete-update-now-button", "n_clicks")],
+    prevent_initial_call=True,
+)
+def set_delete_update_now(n_clicks):
+    if n_clicks is None:
+        raise PreventUpdate
+
+    from datetime import datetime
+
+    now = datetime.now()
+    current_date = now.strftime("%Y-%m-%d")
+    current_time = now.strftime("%H:%M")
+
+    return current_date, current_time, "success"
 
 
 if __name__ == "__main__":

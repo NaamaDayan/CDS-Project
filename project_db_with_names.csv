@@ -131,3 +131,5 @@ Brittany,Jackson,8310-5,37.2,Celsious,2025-05-18 20:30:00,2025-05-21 10:00:00,fe
 Brittany,Jackson,75275-8,Shaking,ordinal,2025-05-18 20:30:00,2025-05-21 10:00:00,female,Cognitive function:Imp:Pt:^Patient:Nom
 Brittany,Jackson,39106-0,Vesiculation,ordinal,2025-05-18 20:30:00,2025-05-21 10:00:00,female,Temperature:Find:Pt:Skin:Nom
 Brittany,Jackson,56840-2,Edema,ordinal,2025-05-18 20:30:00,2025-05-21 10:00:00,female,Pain severity verbal numeric scale:Score:Pt:^Patient:Qn
+John,Doe,30313-1,12,gr/dl,2025-05-18 14:00:00,2025-08-04 10:59:00,male,Hemoglobin:MCnc:Pt:BldA:Qn
+John,Doe,30313-1,DELETED,gr/dl,2025-05-18 14:00:00,2025-08-05 11:00:00,male,Hemoglobin:MCnc:Pt:BldA:Qn
