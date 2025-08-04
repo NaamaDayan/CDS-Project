@@ -1,0 +1,6 @@
+low_range,high_range,state
+0,9.0,Severe Anemia
+9,11.0,Moderate Anemia
+11,13.0,Mild Anemia
+13,16.0,Normal Hemoglobin
+16,inf,Polyhemia 

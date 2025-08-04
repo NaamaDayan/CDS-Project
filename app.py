@@ -1282,7 +1282,19 @@ def handle_hem_changes(save_clicks, reset_clicks, add_clicks, gender, table_cont
                 table_data = table_container["props"]["data"]
                 df = pd.DataFrame(table_data)
                 knowledge_db.hemoglobin_tables[Gender(gender)] = df
-                return "Changes saved successfully", "refresh"
+
+                # Save to CSV file
+                success, message = knowledge_db.save_all_data()
+                if success:
+                    return (
+                        "Changes saved successfully to memory and CSV files",
+                        "refresh",
+                    )
+                else:
+                    return (
+                        f"Changes saved to memory but CSV save failed: {message}",
+                        "refresh",
+                    )
             return "No data to save", ""
         except Exception as e:
             return f"Error saving changes: {str(e)}", ""
@@ -1365,7 +1377,19 @@ def handle_hemat_changes(
                     new_df[pd.Interval(low, high, closed="left")] = df[col]
 
                 knowledge_db.hematological_tables[Gender(gender)] = new_df
-                return "Changes saved successfully", "refresh"
+
+                # Save to CSV file
+                success, message = knowledge_db.save_all_data()
+                if success:
+                    return (
+                        "Changes saved successfully to memory and CSV files",
+                        "refresh",
+                    )
+                else:
+                    return (
+                        f"Changes saved to memory but CSV save failed: {message}",
+                        "refresh",
+                    )
             return "No data to save", ""
         except Exception as e:
             return f"Error saving changes: {str(e)}", ""
@@ -1434,7 +1458,19 @@ def handle_sys_changes(save_clicks, reset_clicks, add_clicks, table_container):
                 # Set the condition column as index
                 df = df.set_index("Condition")
                 knowledge_db.systemic_table = df
-                return "Changes saved successfully", "refresh"
+
+                # Save to CSV file
+                success, message = knowledge_db.save_all_data()
+                if success:
+                    return (
+                        "Changes saved successfully to memory and CSV files",
+                        "refresh",
+                    )
+                else:
+                    return (
+                        f"Changes saved to memory but CSV save failed: {message}",
+                        "refresh",
+                    )
             return "No data to save", ""
         except Exception as e:
             return f"Error saving changes: {str(e)}", ""
@@ -1504,7 +1540,19 @@ def handle_rec_changes(save_clicks, reset_clicks, add_clicks, gender, table_cont
                 table_data = table_container["props"]["data"]
                 df = pd.DataFrame(table_data)
                 knowledge_db.recommendations[Gender(gender)] = df
-                return "Changes saved successfully", "refresh"
+
+                # Save to CSV file
+                success, message = knowledge_db.save_all_data()
+                if success:
+                    return (
+                        "Changes saved successfully to memory and CSV files",
+                        "refresh",
+                    )
+                else:
+                    return (
+                        f"Changes saved to memory but CSV save failed: {message}",
+                        "refresh",
+                    )
             return "No data to save", ""
         except Exception as e:
             return f"Error saving changes: {str(e)}", ""
@@ -1582,7 +1630,19 @@ def handle_validity_changes(save_clicks, reset_clicks, add_clicks, table_contain
                             int(row["good-before"]),
                             int(row["good-after"]),
                         )
-                    return "Changes saved successfully", "refresh"
+
+                    # Save to CSV file
+                    success, message = knowledge_db.save_all_data()
+                    if success:
+                        return (
+                            "Changes saved successfully to memory and CSV files",
+                            "refresh",
+                        )
+                    else:
+                        return (
+                            f"Changes saved to memory but CSV save failed: {message}",
+                            "refresh",
+                        )
             return "No data to save", ""
         except Exception as e:
             return f"Error saving changes: {str(e)}", ""

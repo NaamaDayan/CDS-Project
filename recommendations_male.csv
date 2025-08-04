@@ -1,0 +1,6 @@
+Hemoglobinstate,Hematologicalstate,Systematic Toxicity,Recommendation
+Severe Anemia,Pancytopenia,GRADE 1,Measure BP once a week
+Moderate Anemia,Anemia,GRADE 2,Measure BP every 3 days. Give aspirin 5g twice a week
+Mild Anemia,Suspected Leukemia,GRADE 3,"Measure BP every day, Give aspirin 15g every day. Diet consultation"
+Normal Hemoglobin,Leukemoid reaction,GRADE 4,Measure BP twice a day. Give aspirin 15g every day. Exercise consultation. Diet consultation
+Polyhemia,Suspected Polycytemia Vera,GRADE 4,Measure BP every hour. Give 1 gr magnesium every hour. Exercise consultation. Call family

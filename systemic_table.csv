@@ -1,0 +1,5 @@
+index,grade 1,grade 2,grade 3,grade 4
+fever,0-38.5,38.5-40.0,40.0+,40.0
+chills,None,Shaking,Rigor,Rigor
+skin-look,Erythema,Vesiculation,Desquamation,Exfoliation
+allergic state,Edema,Bronchospasm,Sever-Bronchospasm,Anaphylactic-Shock

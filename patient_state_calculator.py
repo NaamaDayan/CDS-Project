@@ -207,7 +207,9 @@ def calculate_hemoglobin_states(project_db: pd.DataFrame, knowledge_db, selected
         (project_db['last_name'] == last_name) & 
         (project_db['LOINC-NUM'] == '30313-1')
     ].sort_values('measurement_datetime')
-    
+
+    patient_tests = patient_tests[patient_tests['Value'] != 'DELETED']
+
     if patient_tests.empty:
         return []
     
@@ -260,7 +262,9 @@ def calculate_hematological_states(project_db: pd.DataFrame, knowledge_db, selec
         (project_db['last_name'] == last_name) & 
         (project_db['LOINC-NUM'].isin(['30313-1', '6690-2']))
     ].sort_values('measurement_datetime')
-    
+
+    patient_tests = patient_tests[patient_tests['Value'] != 'DELETED']
+
     if patient_tests.empty:
         return []
     

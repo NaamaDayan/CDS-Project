@@ -1,0 +1,6 @@
+Hemoglobinstate,Hematologicalstate,Systematic Toxicity,Recommendation
+Severe Anemia,Pancytopenia,GRADE 1,Measure BP every 3 days
+Moderate Anemia,Anemia,GRADE 2,Measure BP every 3 days and Give Celectone 2g twice a day for two days drug treatment
+Mild Anemia,Suspected Leukemia,GRADE 3,Measure BP every day and Give 1 gr magnesium every 3 hours. Diet consultation
+Normal Hemoglobin,Leukemoid reaction,GRADE 4,"Measure BP twice a day, Give 1 gr magnesium every hour. Exercise consultation. Diet consultation"
+Polyhemia,Suspected Polycytemia Vera,GRADE 4,Measure BP every hour. Give 1 gr magnesium every hour. Exercise consultation. Call help
